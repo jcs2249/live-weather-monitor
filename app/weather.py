@@ -7,7 +7,7 @@ WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
 
 async def get_weather(city: str):
     async with httpx.AsyncClient() as client:
-        # Find the city's latitude and longitude
+        # Find the city's coordinates
         geo_response = await client.get(
             GEOCODING_URL,
             params={
@@ -29,7 +29,7 @@ async def get_weather(city: str):
         latitude = location["latitude"]
         longitude = location["longitude"]
 
-        # Get the weather for those coordinates
+        # Request current + forecast data
         weather_response = await client.get(
             WEATHER_URL,
             params={
@@ -43,9 +43,26 @@ async def get_weather(city: str):
                     "weather_code",
                     "wind_speed_10m",
                 ],
+                "hourly": [
+                    "temperature_2m",
+                    "precipitation_probability",
+                    "precipitation",
+                    "weather_code",
+                    "wind_speed_10m",
+                ],
+                "daily": [
+                    "weather_code",
+                    "temperature_2m_max",
+                    "temperature_2m_min",
+                    "precipitation_probability_max",
+                    "sunrise",
+                    "sunset",
+                ],
                 "temperature_unit": "fahrenheit",
                 "wind_speed_unit": "mph",
+                "precipitation_unit": "inch",
                 "timezone": "auto",
+                "forecast_days": 7,
             },
         )
 
@@ -60,4 +77,6 @@ async def get_weather(city: str):
             "latitude": latitude,
             "longitude": longitude,
             "current": weather_data["current"],
+            "hourly": weather_data["hourly"],
+            "daily": weather_data["daily"],
         }
