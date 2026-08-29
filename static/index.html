@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Live Weather Monitor</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>Live Weather Monitor</h1>
+
+        <div class="search">
+            <input type="text" id="cityInput" placeholder="Enter a city..." value="Philadelphia">
+
+            <button onclick="getWeather()">
+                Search
+            </button>
+        </div>
+
+        <div class="weather-card">
+
+            <h2 id="location">Loading...</h2>
+
+            <div class="temperature" id="temperature">
+                --°F
+            </div>
+
+            <p id="conditions">
+                Loading weather data...
+            </p>
+
+            <div class="weather-details">
+
+                <div>
+                    <strong>Feels Like</strong>
+                    <span id="feelsLike">--</span>
+                </div>
+
+                <div>
+                    <strong>Humidity</strong>
+                    <span id="humidity">--</span>
+                </div>
+
+                <div>
+                    <strong>Wind</strong>
+                    <span id="wind">--</span>
+                </div>
+
+                <div>
+                    <strong>Precipitation</strong>
+                    <span id="precipitation">--</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="/static/app.js"></script>
+
+</body>
+
+</html>
